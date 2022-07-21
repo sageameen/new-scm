@@ -3,4 +3,4 @@ services:
   web:
     image: "ameenplml/sage:latest"
     ports:
-      - "8000:5000"
+            - "80:80"
