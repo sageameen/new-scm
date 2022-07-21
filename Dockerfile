@@ -1,15 +1,12 @@
 FROM ubuntu:latest
 MAINTAINER sage
+RUN apt-get -y update && apt-get -y install nginx
 
-RUN apt-get update
-RUN apt-get install nginx -y
+# Copy the Nginx config
+COPY default /etc/nginx/sites-available/default
+COPY index.html /usr/share/nginx/html/
+# Expose the port for access
+EXPOSE 80/tcp
 
-RUN apt-get update \
-    && apt-get -y install apt-utils
-
-RUN apt-get update \
-    && apt-get -y install ca-certificates curl
-
-RUN apt-get update \
-    && apt-get -y install docker.io \
-    && apt-get -y install docker-compose
+# Run the Nginx server
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
